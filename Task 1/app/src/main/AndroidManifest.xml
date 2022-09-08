@@ -16,10 +16,11 @@
         <activity
             android:name=".Edit_info"
             android:exported="false"
-            android:label="@string/title_activity_about_me" />
+            android:label="@string/title_edit_info" />
         <activity
             android:name=".AboutMeActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:label="@string/title_activity_about_me" />
         <activity
             android:name=".SettingsActivity"
             android:exported="false"

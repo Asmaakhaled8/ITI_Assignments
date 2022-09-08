@@ -27,26 +27,31 @@ public class Edit_info extends AppCompatActivity {
         setContentView(R.layout.activity_edit_info);
         actionBar();
         initiate();
+        updateFields();
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = pref.edit();
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = pref.edit();
                 editor.putString("userName",mNewName.getText().toString());
                 editor.putString("userEmail",mNewEmail.getText().toString());
                 editor.putString("userPhone",mNewPhone.getText().toString());
                 editor.commit();
                 mName_text.setText(mNewName.getText().toString());
+                finish();
             }
         });
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateFields();
+    }
     private void actionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);}
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -55,12 +60,18 @@ public class Edit_info extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void initiate(){
         mNewName = findViewById(R.id.save_name);
         mNewEmail = findViewById(R.id.save_email);
         mNewPhone = findViewById(R.id.save_phone);
         mSave = findViewById(R.id.save);
         mName_text = findViewById(R.id.name);
+    }
+    private void updateFields()
+    {
+        mNewName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userName",""));
+        mNewEmail.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userEmail",""));
+        mNewPhone.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userPhone",""));
+        mName_text.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userName",""));
     }
 }

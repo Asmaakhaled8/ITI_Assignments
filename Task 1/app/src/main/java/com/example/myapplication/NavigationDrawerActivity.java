@@ -5,10 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -29,39 +28,28 @@ public class NavigationDrawerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityNavigationDrawerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarNavigationDrawer.toolbar);
-        binding.appBarNavigationDrawer.fab.setOnClickListener(view -> {
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-            String name = pref.getString("userName","");
-            String email = pref.getString("userEmail","");
-            String phone = pref.getString("userPhone","");
-            TextView nameText = findViewById(R.id.name_nav);
-            nameText.setText(name);
-            TextView emailText = findViewById(R.id.email_nav);
-            emailText.setText(email);
-            /*EditText name_edit = findViewById(R.id.save_name);
-            EditText email_edit = findViewById(R.id.save_email);
-            EditText phone_edit = findViewById(R.id.save_phone);
-            name_edit.setText(name);
-            email_edit.setText(email);
-            phone_edit.setText(phone);*/
-        }
-        );
         navigationDrawer();
-
-       // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-             //   .setAction("Action", null).show()
+        updateNavHeader();
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateNavHeader();
+    }
     private void updateNavHeader() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         String name = pref.getString("userName","");
         String email = pref.getString("userEmail","");
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView nameText = headerView.findViewById(R.id.name_nav);
+        nameText.setText(name);
+        TextView emailText = headerView.findViewById(R.id.email_nav);
+        emailText.setText(email);
     }
-
     private void navigationDrawer() {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -75,14 +63,12 @@ public class NavigationDrawerActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_drawer, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
@@ -90,12 +76,13 @@ public class NavigationDrawerActivity extends AppCompatActivity {
             return true;
         }
         else if (item.getItemId() == R.id.action_about){
-            startActivity(new Intent(this,Edit_info.class));
+            startActivity(new Intent(this,AboutMeActivity.class));
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        else {
+            return super.onOptionsItemSelected(item);
+        }
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_navigation_drawer);

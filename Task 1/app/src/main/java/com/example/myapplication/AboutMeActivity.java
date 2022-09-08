@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,38 +14,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class AboutMeActivity extends AppCompatActivity {
-
-
+    TextView name;
+    TextView editName;
+    TextView editPhone;
+    TextView editEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_me);
-        actionBar();
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("userName","Asmaa");
-        editor.putString("userEmail","asmaa.kmotawie@gmail.com");
-        editor.putString("userPhone","01060066848");
-        editor.commit();
+        actionBar();
+        initialize();
+        updateFields();
 
         Button edit = findViewById(R.id.edit);
-        //TextView nameEdit = findViewById(R.id.edit_name);
-        //TextView emailEdit = findViewById(R.id.edit_email);
-        //TextView phoneEdit = findViewById(R.id.edit_phone);
-
         edit.setOnClickListener(view -> {
-            TextView name_view = findViewById(R.id.name);
-            name_view.setText("Asmaa");
+            startActivity(new Intent(AboutMeActivity.this,Edit_info.class));
         });
     }
-
     private void actionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);}
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateFields();
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -53,9 +50,18 @@ public class AboutMeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void preference(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        //mEditor = sharedPreferences.edit();
+    private void initialize()
+    {
+        name = findViewById(R.id.name);
+        editName = findViewById(R.id.edit_name);;
+        editPhone = findViewById(R.id.edit_phone);;
+        editEmail = findViewById(R.id.edit_email);;
+    }
+    private void updateFields()
+    {
+        name.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userName",""));
+        editEmail.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userEmail",""));
+        editPhone.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userPhone",""));
+        editName.setText(PreferenceManager.getDefaultSharedPreferences(this).getString("userName",""));
     }
 }

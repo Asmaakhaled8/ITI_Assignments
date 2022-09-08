@@ -34,5 +34,10 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="action_about">About Me</string>
+    <string name="title_edit_info">Edit Info</string>
+    <string name="enter_phone">Enter Phone</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="name">Name</string>
 
 </resources>

@@ -9,8 +9,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
         tools:ignore="UselessParent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,33 +30,45 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:text="Name"
+                android:text="@string/name"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/edit_name"
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
-                android:hint="Name"
-                android:minHeight="48dp" />
+                android:hint="@string/enter_name"
+                android:minHeight="48dp"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/edit_email"
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
-                android:hint="Email"
-                android:minHeight="48dp" />
+                android:hint="@string/enter_email"
+                android:minHeight="48dp"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/edit_phone"
+                style="?android:attr/listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
-                android:hint="Phone"
-                android:minHeight="48dp" />
+                android:hint="@string/enter_phone"
+                android:minHeight="48dp"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/edit"
